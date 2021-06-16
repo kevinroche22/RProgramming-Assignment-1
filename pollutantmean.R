@@ -7,24 +7,24 @@
 # monitors, ignoring any missing values coded as NA. 
 
 pollutantMean <- function(directory, pollutant, id = 1:332) {
-                ## error message if user inputs invalid pollutant 
-                if(pollutant != "sulfate" & pollutant != "nitrate") { 
-                                print("Invalid pollutant entry - enter either 
-                                      sulfate or nitrate") # error message
+        ## Error message if user inputs invalid pollutant 
+        if(pollutant != "sulfate" & pollutant != "nitrate") { 
+                        print("Invalid pollutant entry - enter either 
+                              sulfate or nitrate") # error message
                 
-                } else {
-                                ## Store needed files in csvList var
-                                csvList <- list.files(path = directory)[id]
+        } else {
+                        ## Store needed files in csvList var
+                        csvList <- list.files(path = directory)[id]
+                        
+                        ## Read csvList var
+                        readCsvList <- lapply(csvList, read.csv) # applies read.csv to csvList
+                        
+                        ## Amalgamate into single file
+                        pollutantData <- do.call(rbind, readCsvList) # do.call passes rbind on selected csv's
                                 
-                                ## Read csvList var
-                                readCsvList <- lapply(csvList, read.csv) # applies read.csv to csvList
-                                
-                                ## Amalgamate into single file
-                                pollutantData <- do.call(rbind, readCsvList) # do.call passes rbind on selected csv's
-                                
-                                ## Remove NA values and calculate mean
-                                mean(pollutantData[,pollutant], na.rm = TRUE)
-                                }
+                        ## Remove NA values and calculate mean
+                        mean(pollutantData[,pollutant], na.rm = TRUE)
+                        }
 }
 
             
