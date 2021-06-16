@@ -7,6 +7,7 @@
 # monitors, ignoring any missing values coded as NA. 
 
 pollutantMean <- function(directory, pollutant, id = 1:332) {
+  
         ## Error message if user inputs invalid pollutant 
         if(pollutant != "sulfate" & pollutant != "nitrate") { 
                         print("Invalid pollutant entry - enter either 
